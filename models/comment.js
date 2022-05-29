@@ -3,7 +3,7 @@ const dateFormat = require('../utils/dateFormat');
 
 const ReplySchema = new Schema(
   {
-    // set custom id to avoid confusion with parent comment's _id field
+    // set custom id to avoid confusion with parent comment _id
     replyId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId()
@@ -56,8 +56,6 @@ CommentSchema.virtual('replyCount').get(function() {
   return this.replies.length;
 });
 
-PizzaSchema.virtual('commentCount').get(function() {
-  return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
-});
+const Comment = model('Comment', CommentSchema);
 
 module.exports = Comment;
